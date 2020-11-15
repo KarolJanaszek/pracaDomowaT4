@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Car view</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input type="text" th:field="${car.carId}" class="form-control" id="id" disabled>
+        </div>
+        <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" th:field="${car.model}" class="form-control" id="model" disabled>
+        </div>
+        <div class="form-group">
+            <label for="mark">Mark:</label>
+            <input type="text" th:field="${car.mark}" class="form-control" id="mark" disabled>
+        </div>
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" th:field="${car.color}" class="form-control" id="color" disabled>
+        </div>
+        <div class="text-right">
+            <a th:href="@{/cars}"><button type="button" class="btn btn-primary btn-md">Back</button></a>
+        </div>
+    </div>
+</body>
+</html>
