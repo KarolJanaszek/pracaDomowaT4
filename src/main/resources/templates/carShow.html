@@ -14,19 +14,19 @@
     <div class="container-fluid">
         <div class="form-group">
             <label for="id">Id:</label>
-            <input type="text" th:field="${car.carId}" class="form-control" id="id" disabled>
+            <input type="text" th:value="${car.carId}" class="form-control" id="id" disabled>
         </div>
         <div class="form-group">
             <label for="model">Model:</label>
-            <input type="text" th:field="${car.model}" class="form-control" id="model" disabled>
+            <input type="text" th:value="${car.model}" class="form-control" id="model" disabled>
         </div>
         <div class="form-group">
             <label for="mark">Mark:</label>
-            <input type="text" th:field="${car.mark}" class="form-control" id="mark" disabled>
+            <input type="text" th:value="${car.mark}" class="form-control" id="mark" disabled>
         </div>
         <div class="form-group">
             <label for="color">Color:</label>
-            <input type="text" th:field="${car.color}" class="form-control" id="color" disabled>
+            <input type="text" th:value="${car.color.toString()}" class="form-control" id="color" disabled>
         </div>
         <div class="text-right">
             <a th:href="@{/cars}"><button type="button" class="btn btn-primary btn-md">Back</button></a>

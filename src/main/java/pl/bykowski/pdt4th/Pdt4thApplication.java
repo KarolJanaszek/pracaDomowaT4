@@ -3,8 +3,7 @@ package pl.bykowski.pdt4th;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import pl.bykowski.pdt4th.config.WebConfig;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -13,7 +12,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class Pdt4thApplication extends AbstractAnnotationConfigDispatcherServletInitializer {
+@EnableWebMvc
+public class Pdt4thApplication  {
 
     public static void main(String[] args) {
         SpringApplication.run(Pdt4thApplication.class, args);
@@ -28,18 +28,4 @@ public class Pdt4thApplication extends AbstractAnnotationConfigDispatcherServlet
                 .build();
     }
 
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { WebConfig.class };
-    }
-
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return null;
-    }
-
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
 }

@@ -14,11 +14,14 @@ public enum Color {
     SILVER("silver"),
     GOLDEN("golden");
 
+    private String name;
+
     Color(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return name();
+        return this.name;
     }
 }

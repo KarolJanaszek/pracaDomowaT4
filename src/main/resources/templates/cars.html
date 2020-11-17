@@ -44,12 +44,20 @@
                 <tbody>
                     <tr th:each="car: ${cars}">
                         <td th:text="${car.carId}"/>
-                        <td th:text="${car.mark}"><a th:href="@{/cars/edit/{id}/mark(carId=${car.carId})}"><img src="/img/edit.png"/></a></td>
-                        <td th:text="${car.model}"><a th:href="@{/cars/edit/{id}/model(carId=${car.carId})}"><img src="/img/edit.png"/></a></td>
-                        <td th:text="${car.getColor().name()}"><a th:href="@{/cars/edit/{id}/color(carId=${car.carId})}"><img src="/img/edit.png"/></a></td>
+                        <td> <a th:text="${car.mark}" />
+                            <a th:href="@{/cars/edit/{id}/mark(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                        </td>
+                        <td>
+                            <a th:text="${car.model}" />
+                            <a th:href="@{/cars/edit/{id}/model(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                        </td>
+                        <td>
+                            <a th:text="${car.color.toString()}" />
+                            <a th:href="@{/cars/edit/{id}/color(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                        </td>
                         <td >
-                            <a class="show" th:href="@{/cars/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-primary">Show</button></a>
-                            <a class="edit" th:href="@{/cars/edit/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-success">Edit</button></a>
+                            <a class="show" th:href="@{/cars/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-info">Show</button></a>
+                            <a class="edit" th:href="@{/cars/edit/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-warning">Edit</button></a>
                             <a class="delete" th:href="@{/cars/delete/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
