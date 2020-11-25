@@ -48,7 +48,7 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public String addCar(Model model, @ModelAttribute Car car) {
+    public String addCar(@ModelAttribute Car car) {
         if (car.getMark().isEmpty() || car.getModel().isEmpty()) {
             return "redirect:/cars/addCar";
         }

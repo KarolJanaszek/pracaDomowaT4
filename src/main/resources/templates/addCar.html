@@ -15,20 +15,11 @@
 <div class="container-fluid">
     <h1>Adding new car</h1>
         <form th:action="@{/cars/addCar}" th:object="${car}" method="post">
-            <!--
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="input-id">Id</span>
-                </div>
-                <input type="text" th:field="${car.carId}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
-            </div>
-            -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="input-mark">Mark</span>
                 </div>
                 <input type="text" th:field="*{mark}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <a th:text="${messageMark}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
