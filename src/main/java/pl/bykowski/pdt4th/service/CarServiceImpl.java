@@ -51,10 +51,10 @@ public class CarServiceImpl implements CarService {
     }
 
     private void setIdForNewCar(Car car) {
-        car.setCarId(carList.stream().mapToLong(c -> c.getCarId()).max().orElseThrow(NoSuchElementException::new)+1);
+        car.setCarId(carList.stream().mapToLong(Car::getCarId).max().orElseThrow(NoSuchElementException::new)+1);
     }
 
-    private List<Car> createCars() {
+    private void createCars() {
         carList = new ArrayList<>();
         carList.add(new Car("Fiat", "Panda", Color.RED));
         carList.add(new Car("Volkswagen", "DasAuto", Color.RED));
@@ -64,6 +64,5 @@ public class CarServiceImpl implements CarService {
         carList.add(new Car("Toyota", "Auris", Color.BLACK));
         carList.add(new Car("Toyota", "Yaris", Color.SILVER));
         carList.add(new Car("Subaru ", "XV", Color.BLUE));
-        return carList;
     }
 }
