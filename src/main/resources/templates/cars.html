@@ -26,8 +26,9 @@
         <h1 class="text-center head">Cars</h1>
 
         <div class="form-inline float-right">
-            <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by color">
+            <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by color...">
             <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Search" onclick="search()">
+            <a th:href="@{/cars}"><input type="button" class="btn btn-outline-danger my-2 my-sm-0" style="margin-left: 5px;" value="Clear"></a>
         </div>
 
         <div>

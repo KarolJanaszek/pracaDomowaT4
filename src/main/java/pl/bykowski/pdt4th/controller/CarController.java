@@ -60,8 +60,8 @@ public class CarController {
     }
 
     @GetMapping("/edit/{id}")
-    public String modifyCarView(Model model, @PathVariable long id) {
-        Optional<Car> first = carService.getAllCars().stream().filter(car -> car.getCarId() == id).findFirst();
+    public String modifyCar(Model model, @PathVariable long id) {
+        Optional<Car> first = carService.getCarById(id);
         if (first.isPresent()) {
             model.addAttribute("editedCar", first.get());
             return "carEdit";
@@ -69,18 +69,41 @@ public class CarController {
         return "redirect:/cars";
     }
 
+    @GetMapping("/edit/{id}/{field}")
+    public String modifyCarField(Model model, @PathVariable long id, @PathVariable String field) {
+        Optional<Car> first = carService.getCarById(id);
+        if (first.isPresent()) {
+            model.addAttribute("editedCar", first.get());
+            switch (field){
+                case "mark": return "editMark";
+                case "model": return "editModel";
+                case "color": return "editColor";
+                default: break;
+            }
+        }
+        return "redirect:/cars";
+    }
+
     @PostMapping("/edit/{id}")
-    public String modifyCar(@ModelAttribute Car editedCar, @PathVariable long id) {
-        Car first = carService.getAllCars().stream().filter(car -> car.getCarId() == id).findFirst().get();
-        if (!editedCar.getMark().isEmpty()) {first.setMark(editedCar.getMark());}
-        if (!editedCar.getModel().isEmpty()) {first.setModel(editedCar.getModel());}
-        first.setColor(editedCar.getColor());
+    public String modifyCarPost(@ModelAttribute Car editedCar, @PathVariable long id) {
+        Optional<Car> first = carService.getCarById(id);
+        if (first.isPresent()) {
+            if (editedCar.getMark() != null && !editedCar.getMark().isEmpty()) {
+                first.get().setMark(editedCar.getMark());
+            }
+            if (editedCar.getModel() != null && !editedCar.getModel().isEmpty()) {
+                first.get().setModel(editedCar.getModel());
+            }
+            if (editedCar.getColor() != null) {
+                first.get().setColor(editedCar.getColor());
+            }
+        }
         return "redirect:/cars";
     }
 
     @GetMapping("/delete/{id}")
     public String removeCar(@PathVariable long id) {
-        Optional<Car> first = carService.getAllCars().stream().filter(car -> car.getCarId() == id).findFirst();
+        Optional<Car> first = carService.getCarById(id);
         if (first.isPresent()) {
             carService.removeCar(first.get());
         }

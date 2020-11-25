@@ -42,8 +42,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public boolean addCar(Car car) {
         setIdForNewCar(car);
-        boolean add = carList.add(car);
-        return add;
+        return carList.add(car);
     }
 
     @Override
