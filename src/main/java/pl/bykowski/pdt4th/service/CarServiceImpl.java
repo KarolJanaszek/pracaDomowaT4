@@ -6,6 +6,7 @@ import pl.bykowski.pdt4th.model.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public boolean addCar(Car car) {
+        setIdForNewCar(car);
         boolean add = carList.add(car);
         return add;
     }
@@ -47,6 +49,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public void removeCar(Car car) {
         carList.remove(car);
+    }
+
+    private void setIdForNewCar(Car car) {
+        car.setCarId(carList.stream().mapToLong(c -> c.getCarId()).max().orElseThrow(NoSuchElementException::new)+1);
     }
 
     private List<Car> createCars() {

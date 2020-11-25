@@ -42,18 +42,21 @@ public class CarController {
     }
 
     @GetMapping("/addCar")
-    public String addNewCar(Model model, @ModelAttribute Car car) {
+    public String addNewCar(Model model) {
         model.addAttribute("car", new Car());
         return "addCar";
     }
 
     @PostMapping("/addCar")
-    public String addCar(@ModelAttribute Car car) {
+    public String addCar(Model model, @ModelAttribute Car car) {
+        if (car.getMark().isEmpty() || car.getModel().isEmpty()) {
+            return "redirect:/cars/addCar";
+        }
         boolean add = carService.addCar(car);
         if (add) {
             return "redirect:/cars";
         }
-        return "redirect:/addCar";
+        return "redirect:/cars/addCar";
     }
 
     @GetMapping("/edit/{id}")
@@ -67,8 +70,11 @@ public class CarController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyCar(@ModelAttribute Car editedCar) {
-
+    public String modifyCar(@ModelAttribute Car editedCar, @PathVariable long id) {
+        Car first = carService.getAllCars().stream().filter(car -> car.getCarId() == id).findFirst().get();
+        if (!editedCar.getMark().isEmpty()) {first.setMark(editedCar.getMark());}
+        if (!editedCar.getModel().isEmpty()) {first.setModel(editedCar.getModel());}
+        first.setColor(editedCar.getColor());
         return "redirect:/cars";
     }
 

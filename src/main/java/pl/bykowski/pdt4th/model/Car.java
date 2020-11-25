@@ -22,7 +22,6 @@ public class Car extends ResourceSupport {
     private static long counter = 1;
 
     public Car() {
-        this.id = counter++;
     }
 
     public Car(String mark, String model, Color color) {
@@ -58,5 +57,19 @@ public class Car extends ResourceSupport {
 
     public long getCarId() {
         return id;
+    }
+
+    public void setCarId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", mark='" + mark + '\'' +
+                ", model='" + model + '\'' +
+                ", color=" + color +
+                '}';
     }
 }

@@ -15,17 +15,20 @@
 <div class="container-fluid">
     <h1>Adding new car</h1>
         <form th:action="@{/cars/addCar}" th:object="${car}" method="post">
+            <!--
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="input-id">Id</span>
                 </div>
                 <input type="text" th:field="${car.carId}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" disabled>
             </div>
+            -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="input-mark">Mark</span>
                 </div>
                 <input type="text" th:field="*{mark}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <a th:text="${messageMark}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -38,10 +41,9 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupColor">Colors</label>
                     </div>
-                    <select class="custom-select" id="inputGroupColor">
-                        <option selected>Choose color...</option>
+                    <select class="custom-select" id="inputGroupColor" th:field="*{color}">
                         <option th:each="color : ${T(pl.bykowski.pdt4th.model.Color).values()}"
-                                th:value="*{color}" th:text="${color.toString()}" class="dropdown-item"></option>
+                                th:value="${color.name()}" class="dropdown-item"><a th:text="${color}" /></option>
                     </select>
                 </div>
             </div>

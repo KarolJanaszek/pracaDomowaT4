@@ -52,7 +52,7 @@
                             <a th:href="@{/cars/edit/{id}/model(id=${car.carId})}"><img src="/img/edit.png"/></a>
                         </td>
                         <td>
-                            <a th:text="${car.color.toString()}" />
+                            <a th:text="${car.color}" />
                             <a th:href="@{/cars/edit/{id}/color(id=${car.carId})}"><img src="/img/edit.png"/></a>
                         </td>
                         <td >
