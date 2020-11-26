@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/cars")
 public class CarController {
 
-    private CarService carService;
+    private final CarService carService;
 
     @Autowired
     public CarController(CarService carService) {
@@ -33,9 +33,9 @@ public class CarController {
 
     @GetMapping("/{id}")
     public String getCarById(Model model, @PathVariable long id) {
-        Car carSelected = carService.getCarById(id).get();
-        if (carSelected != null) {
-            model.addAttribute("car", carSelected);
+        Optional<Car> carSelected = carService.getCarById(id);
+        if (carSelected.isPresent()) {
+            model.addAttribute("car", carSelected.get());
             return "carShow";
         }
         return "redirect:/cars";
@@ -104,9 +104,7 @@ public class CarController {
     @GetMapping("/delete/{id}")
     public String removeCar(@PathVariable long id) {
         Optional<Car> first = carService.getCarById(id);
-        if (first.isPresent()) {
-            carService.removeCar(first.get());
-        }
+        first.ifPresent(carService::removeCar);
         return "redirect:/cars";
     }
 

@@ -14,7 +14,7 @@ public enum Color {
     SILVER("silver"),
     GOLDEN("golden");
 
-    private String name;
+    private final String name;
 
     Color(String name) {
         this.name = name;

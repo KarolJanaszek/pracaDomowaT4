@@ -3,6 +3,7 @@ package pl.bykowski.pdt4th.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RestController
 @RequestMapping(value="/api/cars", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class CarApi {
-    private CarService carService;
+    private final CarService carService;
 
     @Autowired
     public CarApi(CarService carService) {
@@ -31,7 +32,9 @@ public class CarApi {
     @GetMapping
     public ResponseEntity<Resources<Car>> getCars() {
         List<Car> allCars = carService.getAllCars();
-        allCars.forEach(car -> car.add(linkTo(CarApi.class).slash(car.getCarId()).withSelfRel()));
+        if (allCars.stream().noneMatch(ResourceSupport::hasLinks)) {
+            allCars.forEach(car -> car.add(linkTo(CarApi.class).slash(car.getCarId()).withSelfRel()));
+        }
         Link link = linkTo(CarApi.class).withSelfRel();
         Resources<Car> carResources = new Resources<>(allCars, link);
         return new ResponseEntity<>(carResources, HttpStatus.OK);
