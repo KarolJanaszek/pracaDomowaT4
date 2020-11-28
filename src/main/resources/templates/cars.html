@@ -23,50 +23,70 @@
 </head>
 <body>
     <div class="container-fluid">
-        <h1 class="text-center head">Cars</h1>
-
-        <div class="form-inline float-right">
-            <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by color...">
-            <input type="button" id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" value="Search" onclick="search()">
-            <a th:href="@{/cars}"><input type="button" class="btn btn-outline-danger my-2 my-sm-0" style="margin-left: 5px;" value="Clear"></a>
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="head">Cars</h1>
+            </div>
         </div>
 
-        <div>
-            <table class="table">
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Mark</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Options</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="car: ${cars}">
-                        <td th:text="${car.carId}"/>
-                        <td> <a th:text="${car.mark}" />
-                            <a th:href="@{/cars/edit/{id}/mark(id=${car.carId})}"><img src="/img/edit.png"/></a>
-                        </td>
-                        <td>
-                            <a th:text="${car.model}" />
-                            <a th:href="@{/cars/edit/{id}/model(id=${car.carId})}"><img src="/img/edit.png"/></a>
-                        </td>
-                        <td>
-                            <a th:text="${car.color}" />
-                            <a th:href="@{/cars/edit/{id}/color(id=${car.carId})}"><img src="/img/edit.png"/></a>
-                        </td>
-                        <td >
-                            <a class="show" th:href="@{/cars/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-info">Show</button></a>
-                            <a class="edit" th:href="@{/cars/edit/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-warning">Edit</button></a>
-                            <a class="delete" th:href="@{/cars/delete/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-danger">Delete</button></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col">
+                <div class="float-right form-inline">
+                    <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by color...">
+                    <input type="button" id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" value="Search" onclick="search()">
+                    <a th:href="@{/cars}"><input type="button" class="btn btn-outline-danger my-2 my-sm-0" style="margin-left: 5px;" value="Clear"></a>
+                </div>
+            </div>
         </div>
-        <div class="text-right">
-            <a th:href="@{/cars/addCar}"><button type="button" class="btn btn-primary btn-md">Add new car</button></a>
+
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Mark</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Color</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="car: ${cars}">
+                            <td th:text="${car.carId}"/>
+                            <td> <a th:text="${car.mark}" />
+                                <a th:href="@{/cars/edit/{id}/mark(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                            </td>
+                            <td>
+                                <a th:text="${car.model}" />
+                                <a th:href="@{/cars/edit/{id}/model(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                            </td>
+                            <td>
+                                <a th:text="${car.color}" />
+                                <a th:href="@{/cars/edit/{id}/color(id=${car.carId})}"><img src="/img/edit.png"/></a>
+                            </td>
+                            <td >
+                                <a class="show" th:href="@{/cars/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-info">Show</button></a>
+                                <a class="edit" th:href="@{/cars/edit/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-warning">Edit</button></a>
+                                <a class="delete" th:href="@{/cars/delete/{carId}(carId=${car.carId})}"><button type="button" class="btn btn-danger">Delete</button></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-left">
+                <div class="col-lg-6">
+                    <a th:href="@{/market}"><button type="button" class="btn btn-secondary btn-lg">Car market</button></a>
+                </div>
+            </div>
+            <div class="col text-right">
+                <div class="col-lg-6">
+                    <a th:href="@{/cars/addCar}"><button type="button" class="btn btn-primary btn-md">Add new car</button></a>
+                </div>
+            </div>
         </div>
     </div>
 
