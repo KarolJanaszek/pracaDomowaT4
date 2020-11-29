@@ -3,9 +3,22 @@ body {
 }
 
 .head {
-
+    margin: 15px 0 0;
 }
 
 .no-search {
     margin: 20px;
+}
+
+.msg {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.succeed p {
+    color: green;
+}
+
+.failed p {
+    color: red;
 }

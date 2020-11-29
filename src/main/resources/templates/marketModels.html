@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 
     <script>
         function search() {
@@ -30,6 +30,14 @@
     </div>
 
     <div class="row">
+        <div class="col">
+            <a th:href="@{/cars}" target="_blank"><button type="button" class="btn btn-light btn-md">Open my car list</button></a>
+        </div>
+        <div class="col text-center">
+            <div th:class="${added} ? 'msg succeed' : 'msg failed'">
+                <p th:text="${msg}" th:class="${added} ? 'msg succeed' : 'msg failed'"/>
+            </div>
+        </div>
         <div class="col">
             <div class="float-right form-inline">
                 <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by model...">
@@ -79,12 +87,10 @@
 
     <div class="row">
         <div class="col text-left">
-            <div class="col-lg-6">
 
-            </div>
         </div>
         <div class="col text-right">
-            <div class="col-lg-6">
+            <div class="">
                 <a th:href="@{/market}"><button type="button" class="btn btn-primary btn-md">Back</button></a>
             </div>
         </div>

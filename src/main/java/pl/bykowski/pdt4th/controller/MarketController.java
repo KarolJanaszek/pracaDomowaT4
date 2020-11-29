@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.bykowski.pdt4th.model.Car;
-import pl.bykowski.pdt4th.model.MarketData;
+import pl.bykowski.pdt4th.model.Color;
 import pl.bykowski.pdt4th.model.MarketModel;
 import pl.bykowski.pdt4th.service.CarService;
 import pl.bykowski.pdt4th.service.MarketService;
@@ -33,30 +33,47 @@ public class MarketController {
         return "marketMarks";
     }
 
-    @GetMapping("/{id}")
-    public String getModelsList(Model model, @PathVariable int id, @RequestParam(required = false, defaultValue = "") String marketModel) {
-        List<MarketModel> models = marketService.getMarketData(id).getResults();
+    @GetMapping("/{markId}")
+    public String getModelsList(Model model, @PathVariable int markId,
+                                @ModelAttribute("flashAttr") String flashAttr,
+                                @ModelAttribute("flashAttrAdd") String added,
+                                @RequestParam(required = false, defaultValue = "") String searchModel) {
+        List<MarketModel> models = marketService.getMarkById(markId).getResults();
         model.addAttribute("markId", models.get(0).getMakeID());
 
-        if (!marketModel.isEmpty()) {
-            models = models.stream().filter(m -> m.getModelName().toUpperCase().equals(marketModel.toUpperCase())).collect(Collectors.toList());
+        if (!searchModel.isEmpty()) {
+            models = models.stream().filter(m -> m.getModelName().toUpperCase().equals(searchModel.toUpperCase())).collect(Collectors.toList());
         }
         model.addAttribute("marketModels", models);
         model.addAttribute("car", new Car());
+        model.addAttribute("msg", flashAttr);
+        model.addAttribute("added", added);
 
         return "marketModels";
     }
 
-    @PostMapping("/{id}/add/{modelIdToAdd}")
-    public String addCarFromMarket(@PathVariable int id, @PathVariable int modelIdToAdd, @ModelAttribute Car car) {
-        MarketModel modelToAdd = marketService.getMarketData(id).getResults().stream().filter(m -> m.getModelID() == modelIdToAdd).findFirst().get();
+    @PostMapping("/{markId}/add/{modelId}")
+    public String addCarFromMarket(@ModelAttribute Car car, @PathVariable int markId, @PathVariable int modelId, RedirectAttributes ra) {
+        MarketModel modelToAdd = marketService.getModelByMarkIdAndModelId(markId, modelId);
 
-        car.setMark(modelToAdd.getMakeName());
-        car.setModel(modelToAdd.getModelName());
+        if (modelToAdd != null) {
+            car.setMark(modelToAdd.getMakeName());
+            car.setModel(modelToAdd.getModelName());
 
-        carService.addCar(car);
+            boolean add = carService.addCar(car);
+            if (add) {
+                ra.addFlashAttribute("flashAttr", "Car: " + car.getMark() + " " + car.getModel() + " succesfully added");
+                ra.addFlashAttribute("flashAttrAdd", true);
+            } else {
+                ra.addFlashAttribute("flashAttr", "Car: " + car.getMark() + " " + car.getModel() + " failed to add");
+                ra.addFlashAttribute("flashAttrAdd", false);
+            }
+        } else {
+            ra.addFlashAttribute("flashAttr", "Car with id: " + modelId + " not found.");
+            ra.addFlashAttribute("flashAttrAdd", false);
+        }
 
-        return "redirect:/market/{id}";
+        return "redirect:/market/{markId}";
     }
 
 }

@@ -25,6 +25,8 @@ public class MarketModel {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    private Color color;
+
     @JsonProperty("Make_ID")
     public Integer getMakeID() {
         return makeID;
@@ -75,4 +77,11 @@ public class MarketModel {
         this.additionalProperties.put(name, value);
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
