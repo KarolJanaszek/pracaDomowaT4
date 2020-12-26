@@ -22,11 +22,18 @@ public class CarController {
     }
 
     @GetMapping
-    public String getCars(Model model, @RequestParam(required = false, defaultValue = "") String color) {
+    public String getCars(Model model, @RequestParam(required = false, defaultValue = "") String color,
+                          @RequestParam(required = false, defaultValue = "0") int yFrom,
+                          @RequestParam(required = false, defaultValue = "0") int yTo) {
         List<Car> allCars = carService.getAllCars();
         if (!color.isEmpty()) {
             allCars = carService.getCarsByColor(color);
         }
+
+        if (yFrom != 0 || yTo != 0) {
+            allCars = carService.getCarsByYear(yFrom, yTo);
+        }
+
         model.addAttribute("cars", allCars);
         return "cars";
     }
@@ -97,6 +104,10 @@ public class CarController {
             if (editedCar.getColor() != null) {
                 first.get().setColor(editedCar.getColor());
             }
+            if (editedCar.getProdDate() != null) {
+                first.get().setProdDate(editedCar.getProdDate());
+            }
+            carService.updateCar(first.get());
         }
         return "redirect:/cars";
     }
@@ -104,7 +115,7 @@ public class CarController {
     @GetMapping("/delete/{id}")
     public String removeCar(@PathVariable long id) {
         Optional<Car> first = carService.getCarById(id);
-        first.ifPresent(carService::removeCar);
+        first.ifPresent(car -> carService.removeCar(car.getCarId()));
         return "redirect:/cars";
     }
 

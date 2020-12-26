@@ -9,6 +9,8 @@ public interface CarService {
     List<Car> getAllCars();
     Optional<Car> getCarById(long id);
     List<Car> getCarsByColor(String color);
+    List<Car> getCarsByYear(int beginYear, int endYear);
     boolean addCar(Car car);
-    void removeCar(Car car);
+    void removeCar(Long id);
+    void updateCar(Car car);
 }

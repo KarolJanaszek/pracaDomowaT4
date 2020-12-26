@@ -1,8 +1,10 @@
 package pl.bykowski.pdt4th.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.bykowski.pdt4th.model.Car;
 import pl.bykowski.pdt4th.model.Color;
+import pl.bykowski.pdt4th.repository.CarDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +14,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
-    private List<Car> carList;
 
-    public CarServiceImpl() {
-        createCars();
+    private CarDao carDao;
+
+    @Autowired
+    public CarServiceImpl(CarDao carDao) {
+        this.carDao = carDao;
     }
 
     @Override
     public List<Car> getAllCars() {
-        return carList;
+        return carDao.findAllCars();
     }
 
     @Override
     public Optional<Car> getCarById(long id) {
-        return carList
+        return getAllCars()
                 .stream()
                 .filter(car -> car.getCarId() == id)
                 .findFirst();
@@ -33,36 +37,37 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarsByColor(String color) {
-        return carList
+        return getAllCars()
                 .stream()
                 .filter(car -> color.equalsIgnoreCase(car.getColor().name()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public boolean addCar(Car car) {
-        setIdForNewCar(car);
-        return carList.add(car);
+    public List<Car> getCarsByYear(int beginYear, int endYear) {
+        if (beginYear != 0 && endYear != 0) {
+            return carDao.findCarsBeetweenProdYears(beginYear, endYear);
+        } else if (beginYear != 0) {
+            return carDao.findCarsFromProdYears(beginYear);
+        } else if (endYear != 0) {
+            return carDao.findCarsToProdYears(endYear);
+        }
+        return getAllCars();
     }
 
     @Override
-    public void removeCar(Car car) {
-        carList.remove(car);
+    public boolean addCar(Car car) {
+        return carDao.saveCar(car);
     }
 
-    private void setIdForNewCar(Car car) {
-        car.setCarId(carList.stream().mapToLong(Car::getCarId).max().orElseThrow(NoSuchElementException::new)+1);
+    @Override
+    public void removeCar(Long id) {
+        carDao.deleteCar(id);
     }
 
-    private void createCars() {
-        carList = new ArrayList<>();
-        carList.add(new Car("Fiat", "Panda", Color.RED));
-        carList.add(new Car("Volkswagen", "DasAuto", Color.RED));
-        carList.add(new Car("Lada", "Niva", Color.GREEN));
-        carList.add(new Car("Volvo", "V40", Color.BLACK));
-        carList.add(new Car("Volvo", "C30", Color.BLACK));
-        carList.add(new Car("Toyota", "Auris", Color.BLACK));
-        carList.add(new Car("Toyota", "Yaris", Color.SILVER));
-        carList.add(new Car("Subaru ", "XV", Color.BLUE));
+    @Override
+    public void updateCar(Car car) {
+        carDao.updateCar(car);
     }
+
 }

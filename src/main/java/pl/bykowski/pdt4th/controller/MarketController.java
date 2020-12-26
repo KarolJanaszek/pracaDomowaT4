@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.bykowski.pdt4th.converter.StringConverter;
 import pl.bykowski.pdt4th.model.Car;
 import pl.bykowski.pdt4th.model.Color;
 import pl.bykowski.pdt4th.model.MarketModel;
@@ -57,7 +58,7 @@ public class MarketController {
         MarketModel modelToAdd = marketService.getModelByMarkIdAndModelId(markId, modelId);
 
         if (modelToAdd != null) {
-            car.setMark(modelToAdd.getMakeName());
+            car.setMark(StringConverter.representativeMarkForm(modelToAdd.getMakeName()));
             car.setModel(modelToAdd.getModelName());
 
             boolean add = carService.addCar(car);

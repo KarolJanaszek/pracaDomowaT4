@@ -4,6 +4,7 @@ import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Car extends ResourceSupport {
@@ -20,16 +21,23 @@ public class Car extends ResourceSupport {
     @NotNull
     private Color color;
 
-    private static long counter = 1;
+    private LocalDate prodDate;
 
     public Car() {
     }
 
     public Car(String mark, String model, Color color) {
-        this.id = counter++;
         this.mark = mark;
         this.model = model;
         this.color = color;
+    }
+
+    public Car(long id, @NotNull @Size(min = 3) String mark, @NotNull @Size(min = 3) String model, @NotNull Color color, LocalDate prodDate) {
+        this.id = id;
+        this.mark = mark;
+        this.model = model;
+        this.color = color;
+        this.prodDate = prodDate;
     }
 
     public String getMark() {
@@ -63,6 +71,30 @@ public class Car extends ResourceSupport {
     public void setCarId(long id) {
         this.id = id;
     }
+
+    public String getProdDate() {
+        if (prodDate != null) {
+            return prodDate.toString();
+        } else {
+            return null;
+        }
+    }
+
+    public void setProdDate(String prodDate) {
+        if (prodDate == null || prodDate.isEmpty()) {
+            this.prodDate = LocalDate.parse("1900-01-01");
+        } else {
+            this.prodDate = LocalDate.parse(prodDate);
+        }
+    }
+
+//        public LocalDate getProdDate() {
+//          return prodDate;
+//        }
+//
+//        public void setProdDate(LocalDate prodDate) {
+//          this.prodDate = prodDate;
+//        }
 
     @Override
     public String toString() {

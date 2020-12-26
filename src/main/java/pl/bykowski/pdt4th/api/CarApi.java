@@ -77,7 +77,7 @@ public class CarApi {
     public ResponseEntity modifyCar(@Validated @RequestBody Car modCar) {
         Optional<Car> carSelected = carService.getAllCars().stream().filter(car -> car.getId() == modCar.getId()).findFirst();
         if (carSelected.isPresent()) {
-            carService.removeCar(carSelected.get());
+            carService.removeCar(carSelected.get().getCarId());
             carService.addCar(modCar);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -100,7 +100,7 @@ public class CarApi {
     public ResponseEntity removeCar(@PathVariable long id) {
         Optional<Car> first = carService.getAllCars().stream().filter(car -> car.getCarId() == id).findFirst();
         if (first.isPresent()) {
-            carService.removeCar(first.get());
+            carService.removeCar(first.get().getCarId());
             return new ResponseEntity<>(first.get(), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);

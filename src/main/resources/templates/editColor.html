@@ -21,7 +21,7 @@
                 </div>
                 <select class="custom-select" id="inputGroupColor" th:field="*{color}">
                     <option th:each="color : ${T(pl.bykowski.pdt4th.model.Color).values()}"
-                            th:value="${color.name()}" class="dropdown-item"><a th:text="${color}" /></option>
+                            th:value="${color)}" class="dropdown-item"><a th:text="${color.getName()}" /></option>
                 </select>
             </div>
         </div>
