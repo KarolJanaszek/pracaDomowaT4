@@ -43,7 +43,8 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> findCarsBeetweenProdYears(int beginYear, int endYear) {
-        String sql = "SELECT * FROM cars c WHERE c.PROD_DATE >= '" + beginYear + "-01-01' AND c.PROD_DATE < '" + endYear+1 + "-01-01'";
+        endYear++;
+        String sql = "SELECT * FROM cars c WHERE c.PROD_DATE >= '" + beginYear + "-01-01' AND c.PROD_DATE < '" + endYear + "-01-01'";
         return fillCarListByQuery(sql);
     }
 
@@ -55,7 +56,8 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> findCarsToProdYears(int endYear) {
-        String sql = "SELECT * FROM cars c WHERE c.PROD_DATE < '" + endYear+1 + "-01-01'";
+        endYear++;
+        String sql = "SELECT * FROM cars c WHERE c.PROD_DATE < '" + endYear + "-01-01'";
         return fillCarListByQuery(sql);
     }
 
