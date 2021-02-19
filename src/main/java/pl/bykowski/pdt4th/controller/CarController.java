@@ -81,11 +81,15 @@ public class CarController {
         Optional<Car> first = carService.getCarById(id);
         if (first.isPresent()) {
             model.addAttribute("editedCar", first.get());
-            switch (field){
-                case "mark": return "editMark";
-                case "model": return "editModel";
-                case "color": return "editColor";
-                default: break;
+            switch (field) {
+                case "mark":
+                    return "editMark";
+                case "model":
+                    return "editModel";
+                case "color":
+                    return "editColor";
+                default:
+                    break;
             }
         }
         return "redirect:/cars";

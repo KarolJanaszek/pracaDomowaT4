@@ -31,7 +31,9 @@
 
     <div class="row">
         <div class="col">
-            <a th:href="@{/cars}" target="_blank"><button type="button" class="btn btn-light btn-md">Open my car list</button></a>
+            <a th:href="@{/cars}" target="_blank">
+                <button type="button" class="btn btn-light btn-md">Open my car list</button>
+            </a>
         </div>
         <div class="col text-center">
             <div th:class="${added} ? 'msg succeed' : 'msg failed'">
@@ -41,8 +43,11 @@
         <div class="col">
             <div class="float-right form-inline">
                 <input type="text" id="search" class="form-control mr-sm-2" placeholder="Search by model...">
-                <input type="button" id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" value="Search" onclick="search()">
-                <a th:href="@{/market/{id}(id=${markId})}"><input type="button" class="btn btn-outline-danger my-2 my-sm-0" style="margin-left: 5px;" value="Clear"></a>
+                <input type="button" id="searchBtn" class="btn btn-outline-success my-2 my-sm-0" value="Search"
+                       onclick="search()">
+                <a th:href="@{/market/{id}(id=${markId})}"><input type="button"
+                                                                  class="btn btn-outline-danger my-2 my-sm-0"
+                                                                  style="margin-left: 5px;" value="Clear"></a>
             </div>
         </div>
     </div>
@@ -62,13 +67,14 @@
                 </thead>
                 <tbody>
                 <tr th:each="model, iStat : ${marketModels}">
-                    <form th:action="@{/market/{id}/add/{modelIdToAdd}(id=${markId},modelIdToAdd=${model.modelID})}" th:object="${car}" method="post">
+                    <form th:action="@{/market/{id}/add/{modelIdToAdd}(id=${markId},modelIdToAdd=${model.modelID})}"
+                          th:object="${car}" method="post">
                         <td th:text="${iStat.index+1}"/>
                         <td>
-                            <a th:text="${model.makeName}" />
+                            <a th:text="${model.makeName}"/>
                         </td>
                         <td>
-                            <a th:text="${model.modelName}" />
+                            <a th:text="${model.modelName}"/>
                         </td>
                         <td>
                             <input type="date" th:field="*{prodDate}">
@@ -76,10 +82,11 @@
                         <td>
                             <select class="custom-select" id="inputGroupColor" style="width: 30%;" th:field="*{color}">
                                 <option th:each="color : ${T(pl.bykowski.pdt4th.model.Color).values()}"
-                                        th:value="${color}" class="dropdown-item"><a th:text="${color.getName()}" /></option>
+                                        th:value="${color}" class="dropdown-item"><a th:text="${color.getName()}"/>
+                                </option>
                             </select>
                         </td>
-                        <td >
+                        <td>
                             <button type="submit" class="btn btn-info">Add</button>
                         </td>
                     </form>
@@ -95,16 +102,24 @@
         </div>
         <div class="col text-right">
             <div class="">
-                <a th:href="@{/market}"><button type="button" class="btn btn-primary btn-md">Back</button></a>
+                <a th:href="@{/market}">
+                    <button type="button" class="btn btn-primary btn-md">Back</button>
+                </a>
             </div>
         </div>
     </div>
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <script>
     $("#search").on('keyup', function (event) {
         if (event.keyCode === 13) {

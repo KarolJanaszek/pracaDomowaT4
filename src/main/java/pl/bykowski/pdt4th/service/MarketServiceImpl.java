@@ -11,8 +11,8 @@ public class MarketServiceImpl implements MarketService {
     @Override
     public MarketData getMarkById(int markId) {
         RestTemplate restTemplate = new RestTemplate();
-        MarketData marketData = restTemplate.getForObject("https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/"+
-                markId +"?format=json", MarketData.class);
+        MarketData marketData = restTemplate.getForObject("https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/" +
+                markId + "?format=json", MarketData.class);
         return marketData;
     }
 

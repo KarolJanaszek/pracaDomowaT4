@@ -9,7 +9,7 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/","classpath:/img/");
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/","classpath:/css/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/", "classpath:/img/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/", "classpath:/css/");
     }
 }

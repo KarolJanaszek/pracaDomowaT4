@@ -6,7 +6,7 @@ public enum MarketMark {
     JAGUAR(442),
     MASERATI(443),
     LAND_ROVER(444),
-    ROLLS_ROYCE (445),
+    ROLLS_ROYCE(445),
     TOYOTA(448),
     MERCEDES(449),
     BMW(452),

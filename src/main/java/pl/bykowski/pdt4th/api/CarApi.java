@@ -19,7 +19,7 @@ import java.util.Optional;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value="/api/cars", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/api/cars", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class CarApi {
     private final CarService carService;
 
@@ -88,9 +88,15 @@ public class CarApi {
     public ResponseEntity modifyCarElement(@RequestBody Car modCar) {
         Optional<Car> carSelected = carService.getAllCars().stream().filter(car -> car.getId() == modCar.getId()).findFirst();
         if (carSelected.isPresent()) {
-            if(modCar.getColor() != null) {carSelected.get().setColor(modCar.getColor());}
-            if(modCar.getMark() != null) {carSelected.get().setMark(modCar.getMark());}
-            if(modCar.getModel() != null) {carSelected.get().setModel(modCar.getModel());}
+            if (modCar.getColor() != null) {
+                carSelected.get().setColor(modCar.getColor());
+            }
+            if (modCar.getMark() != null) {
+                carSelected.get().setMark(modCar.getMark());
+            }
+            if (modCar.getModel() != null) {
+                carSelected.get().setModel(modCar.getModel());
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);

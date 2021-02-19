@@ -1,21 +1,13 @@
 package pl.bykowski.pdt4th.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.bykowski.pdt4th.model.Car;
-import pl.bykowski.pdt4th.model.Color;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Repository
-public class CarDaoImpl implements CarDao {
+public class CarDaoImpl
+        //implements CarDao
+{
 
+    /*
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -27,7 +19,7 @@ public class CarDaoImpl implements CarDao {
     @Override
     public boolean saveCar(Car car) {
         try {
-            String sql = "INSERT INTO cars VALUES(null,'"+car.getMark()+"','"+car.getModel()+"','"+car.getColor()+"',?)";
+            String sql = "INSERT INTO cars VALUES(null,'" + car.getMark() + "','" + car.getModel() + "','" + car.getColor() + "',?)";
             jdbcTemplate.update(sql, car.getProdDate());
         } catch (DataAccessException e) {
             return false;
@@ -42,7 +34,7 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
-    public List<Car> findCarsBeetweenProdYears(int beginYear, int endYear) {
+    public List<Car> findCarsBetweenProdYears(int beginYear, int endYear) {
         endYear++;
         String sql = "SELECT * FROM cars c WHERE c.PROD_DATE >= '" + beginYear + "-01-01' AND c.PROD_DATE < '" + endYear + "-01-01'";
         return fillCarListByQuery(sql);
@@ -63,7 +55,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public void updateCar(Car car) {
-        String sql = "UPDATE cars c SET c.MODEL = ?, c.MARK = ?, c.COLOR = '"+car.getColor()+"', c.PROD_DATE = ? WHERE c.ID = ?";
+        String sql = "UPDATE cars c SET c.MODEL = ?, c.MARK = ?, c.COLOR = '" + car.getColor() + "', c.PROD_DATE = ? WHERE c.ID = ?";
         jdbcTemplate.update(sql, car.getModel(), car.getMark(), car.getProdDate(), car.getCarId());
     }
 
@@ -83,7 +75,7 @@ public class CarDaoImpl implements CarDao {
 //                        return new Car(rs.getLong(1), rs.getString(2), rs.getString(3), Color.valueOf(rs.getString(4)));
 //                    }}
                 (rs, i) -> new Car(rs.getLong("id"), rs.getString("mark"), rs.getString("model"), Color.valueOf(rs.getString("color")), rs.getDate("prod_date").toLocalDate())
-        , id);
+                , id);
         return car;
     }
 
@@ -99,5 +91,6 @@ public class CarDaoImpl implements CarDao {
         )));
         return carList;
     }
+*/
 
 }

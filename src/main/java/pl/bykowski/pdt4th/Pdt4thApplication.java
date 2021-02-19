@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class Pdt4thApplication  {
+public class Pdt4thApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(Pdt4thApplication.class, args);

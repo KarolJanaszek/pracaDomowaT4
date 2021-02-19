@@ -1,14 +1,12 @@
 package pl.bykowski.pdt4th.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.bykowski.pdt4th.model.Car;
-import pl.bykowski.pdt4th.model.Color;
 import pl.bykowski.pdt4th.repository.CarDao;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,7 +16,7 @@ public class CarServiceImpl implements CarService {
     private CarDao carDao;
 
     @Autowired
-    public CarServiceImpl(CarDao carDao) {
+    public CarServiceImpl(@Qualifier("carDaoImplWithNoDb") CarDao carDao) {
         this.carDao = carDao;
     }
 
@@ -46,7 +44,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getCarsByYear(int beginYear, int endYear) {
         if (beginYear != 0 && endYear != 0) {
-            return carDao.findCarsBeetweenProdYears(beginYear, endYear);
+            return carDao.findCarsBetweenProdYears(beginYear, endYear);
         } else if (beginYear != 0) {
             return carDao.findCarsFromProdYears(beginYear);
         } else if (endYear != 0) {
